@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Your server is running at $HOST_IP:$SHOTGUN_PORT"
+
+if [ -f Gemfile ]; then
+  if grep -q shotgun "Gemfile"; then
+    bundle exec shotgun $@ -o 0.0.0.0 2> >(sed -e "s/9393/$SHOTGUN_PORT/g" -e "s/localhost/$HOST_IP/g" -e "s/0.0.0.0/$HOST_IP/g")
+  else
+    shotgun_binary=$(which -a shotgun | tail -n +2 | head -1)
+
+    $shotgun_binary $@ -o 0.0.0.0 2> >(sed -e "s/9393/$SHOTGUN_PORT/g" -e "s/localhost/$HOST_IP/g" -e "s/0.0.0.0/$HOST_IP/g")
+  fi
+fi

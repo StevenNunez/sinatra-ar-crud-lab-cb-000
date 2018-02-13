@@ -1,0 +1,27 @@
+<%= form_with(model: chicken, local: true) do |form| %>
+  <% if chicken.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chicken.errors.count, "error") %> prohibited this chicken from being saved:</h2>
+
+      <ul>
+      <% chicken.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ham %>
+    <%= form.text_field :ham, id: :chicken_ham %>
+  </div>
+
+  <div class="field">
+    <%= form.label :banana %>
+    <%= form.text_field :banana, id: :chicken_banana %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
